@@ -1,0 +1,13 @@
+TEMA,SUBTEMA,NUM_PERG,PERGUNTA,NOME_ARQUIVO_JS,CODIGO,LINK,TAG_GITHUB,END_TRANSFORMACOES,DESCRICAO,FREQ_DATA,TP_GRAFICO,TITULO
+População,Sexo Biológico,q1_pop_total,Qual é a evolução da população de Salvador?,q1_pop_total.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População total de Salvador
+População,Sexo Biológico,q2_pop_sex_f,Qual é a evolução da população do sexo feminino de Salvador?,q2_pop_sex_f.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População do sexo feminino de Salvador
+População,Sexo Biológico,q3_pop_sex_m,Qual é a evolução da população do sexo masculino de Salvador?,q3_pop_sex_m.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População do sexo masculino de Salvador
+População,Faixa Etária,q41,Qual é a população com idade de 0 a 4 anos em Salvador?,q41.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com idade de 0 a 4 anos em Salvador
+População,Faixa Etária,q42,Qual é a população com idade de 5 a 14 anos em Salvador?,q42.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com idade de 5 a 14 anos em Salvador
+População,Faixa Etária,q43,Qual é a população com idade de 5 a 14 anos em Salvador?,q43.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com idade de 5 a 14 anos em Salvador
+População,Faixa Etária,q44,Qual é  a população com idade de 15 a 19 anos em Salvador?,q44.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com idade de 15 a 19 anos em Salvador
+População,Faixa Etária,q45,Qual é  a população com idade de 20 a 29 anos em Salvador?,q45.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com idade de 20 a 29 anos em Salvador
+População,Faixa Etária,q46,Qual é a população com idade de 30 a 39 anos em Salvador?,q46.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com idade de 30 a 39 anos em Salvador
+População,Faixa Etária,q47,Qual é a população com idade de 40 a 59 anos em Salvador?,q47.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com idade de 40 a 59 anos em Salvador
+População,Faixa Etária,q48,Qual é a população com idade de 60 a 79 anos em Salvador?,q48.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com idade de 60 a 79 anos em Salvador
+População,Faixa Etária,q49,Qual é a população com 80 anos ou mais em Salvador?,q49.csv,,https://www.painelsaneamento.org.br/,(re)Conhecendo Salvador,,,anual,padrao,População com 80 anos ou mais em Salvador
