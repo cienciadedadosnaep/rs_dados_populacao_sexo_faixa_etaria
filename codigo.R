@@ -52,8 +52,7 @@ names(ssa_painel_saneamento_brasil)
 
 
 
-dados <- ssa_painel_saneamento_brasil %>% 
-  select(Indicador,
+dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
          `População total (pessoas) (IBGE)`,
          `População feminina total (pessoas) (IBGE)`,
          `População masculina total (pessoas) (IBGE)`,
@@ -64,7 +63,7 @@ dados <- ssa_painel_saneamento_brasil %>%
          `População com idade de 30 a 39 anos (pessoas) (IBGE)`,                                                                                               
          `População com idade de 40 a 59 anos (pessoas) (IBGE)`,                                                                                               
          `População com idade de 60 a 79 anos (pessoas) (IBGE)`,                                                                                               
-         `População com 80 anos ou mais (pessoas) (IBGE)"`) 
+         `População com 80 anos ou mais (pessoas) (IBGE)`) 
 
 ##  Perguntas e titulos 
 T_ST_P_No_POPULACAO <- read_csv("data/TEMA_SUBTEMA_P_No - POPULACAO.csv")
@@ -79,8 +78,7 @@ names(dados) = c("ano",
                  "q45",
                  "q46",
                  "q47",
-                 "q48",
-                 "q49")
+                 "q48")
 
 
 dados %<>% gather(key = classe,
