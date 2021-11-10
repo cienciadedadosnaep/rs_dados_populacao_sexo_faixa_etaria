@@ -52,7 +52,7 @@ driver = webdriver.Chrome()
 
 driver.get('http://reconhecendosalvador.ufba.br/admin/#/collections/perguntas/new')
 
-time.sleep(40)
+time.sleep(50)
 
 for i in range(0,len(df)):
 
@@ -68,10 +68,11 @@ for i in range(0,len(df)):
 
     codigo = driver.find_element_by_id('code-field-3')
     codigo.send_keys(code)
-    driver.find_element_by_xpath('//span[text()="Publicar"]').click()
     time.sleep(3)
+    driver.find_element_by_xpath('//span[text()="Publicar"]').click()
+    time.sleep(5)
     driver.find_element_by_xpath('//span[text()="Publicar e criar novo(a)"]').click()
     time.sleep(15)
     driver.refresh()
-    time.sleep(10)
+    time.sleep(15)
 
