@@ -66,7 +66,7 @@ dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
          `População com 80 anos ou mais (pessoas) (IBGE)`) 
 
 ##  Perguntas e titulos 
-T_ST_P_No_POPULACAO <- read_csv("data/TEMA_SUBTEMA_P_No - POPULACAO.csv")
+T_ST_P_No_POPULACAO <- read_csv("data/TEMA_SUBTEMA_P_No - POPULACAO_v00.csv")
 
 
 names(dados) = c("ano",
@@ -83,6 +83,9 @@ names(dados) = c("ano",
 
 dados %<>% gather(key = classe,
                   value = consumo,-ano) 
+dados_ca <- dados %>% filter(classe %in% c('q41','q42'))
+dados_adulto <- dados %>% filter(classe %in% c('q43','q44','q45','q46'))
+dados_idoso <- dados %>% filter(classe %in% c('q47','q48'))
 #dados %<>% select(-id)
 # Temas Subtemas Perguntas
 
@@ -95,17 +98,20 @@ SAIDA_POVOAMENTO <- T_ST_P_No_POPULACAO %>%
 SAIDA_POVOAMENTO <- as.data.frame(SAIDA_POVOAMENTO)
 
 classes <- NULL
-classes <- levels(as.factor(dados$classe))
+classes <- levels(as.factor(dados_ca$classe))
 
 # Cores secundarias paleta pantone -
 corsec_recossa_azul <- c('#175676','#62acd1','#8bc6d2','#20cfef',
                          '#d62839','#20cfef','#fe4641','#175676',
                          '#175676','#62acd1','#8bc6d2','#20cfef')
 
-for ( i in 1:length(classes)) {
-  
+#for ( i in 1:length(classes)) {
+dados <- NULL
+dados <- dados_ca
+
+
   objeto_0 <- dados %>%
-    filter(classe %in% c(classes[i])) %>%
+#    filter(classe %in% c(classes[i])) %>%
     select(ano,consumo) %>% filter(ano<2019) %>%
     arrange(ano) %>%
     mutate(ano = as.character(ano)) %>% list()               
@@ -125,20 +131,12 @@ for ( i in 1:length(classes)) {
                                paste(paste(as.vector(objeto_0[[1]]$consumo)),
                                      collapse = ' ')),']',sep = '')
   
-  texto<-paste('{"title":{"text":"',titulo,
-               '","subtext":"',subtexto,
-               '","sublink":"',link,'"},',
-               '"tooltip":{"trigger":"axis"},',
-               '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":45,"show":true,',
-               '"feature":{"dataZoom":{"yAxisIndex":"none"},',
-               '"dataView":{"readOnly":false},"magicType":{"type":["line","bar"]},',
-               '"restore":{},"saveAsImage":{}}},"xAxis":{"type":"category",',
-               '"data":',data_axis,'},',
-               '"yAxis":{"type":"value","axisLabel":{"formatter":"{value}"}},',
-               '"series":[{"data":',data_serie,',',
-               '"type":"bar","color":"',corsec_recossa_azul[i],'","showBackground":true,',
-               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},',
-               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[i],'","borderWidth":2}}]}',sep='')
+  texto <- paste('{"legend":{},"tooltip":{},"dataset":',
+                data_serie,
+                ',"xAxis":[{"type":"category","gridIndex":0}],"',
+                 "yAxis":[{"gridIndex":0}],
+                 "series":[{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"}]'}', sep = '')
+  
   
   #  SAIDA_POVOAMENTO$CODIGO[i] <- texto   
   texto<-noquote(texto)
@@ -149,7 +147,7 @@ for ( i in 1:length(classes)) {
   write(texto,file = paste('data/',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[i],
                            sep =''))
   
-}
+#}
 
 # Arquivo dedicado a rotina de atualizacao global. 
 
