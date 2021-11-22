@@ -124,8 +124,8 @@ SAIDA_POVOAMENTO <- T_ST_P_No_POPULACAO %>%
   select(TEMA,SUBTEMA,PERGUNTA,NOME_ARQUIVO_JS)
 SAIDA_POVOAMENTO <- as.data.frame(SAIDA_POVOAMENTO)
 
-classes <- NULL
-classes <- levels(as.factor(dados_ca$classe))
+#classes <- NULL
+#classes <- levels(as.factor(dados_ca$classe))
 
 # Cores secundarias paleta pantone -
 corsec_recossa_azul <- c('#175676','#62acd1','#8bc6d2','#20cfef',
@@ -165,10 +165,24 @@ dados <- data_serie
 #    "series":[{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"},
 #              {"type":"bar","seriesLayoutBy":"row"}]}
   
-  texto <- paste('{"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,']},
-                 "xAxis":[{"type":"category","gridIndex":0}],"',
-                 "yAxis":[{"gridIndex":0}],
-                 "series":[{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"}]'}', sep = '')
+  texto <- paste('{"title":{"text":"',titulo,
+                 '","subtext":"',subtexto,
+                 '","sublink":"',link,'"},',
+                 '"tooltip":{"trigger":"axis"},',
+                 '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":45,"show":true,',
+                 '"feature":{"dataZoom":{"yAxisIndex":"none"},',
+                 '"dataView":{"readOnly":false},"magicType":{"type":["line","bar"]},',
+                 '"restore":{},"saveAsImage":{}}}',
+                 '"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,
+                 ']},"xAxis":[{"type":"category","gridIndex":0}],"',
+                 '"yAxis":[{"gridIndex":0}],',
+                 '"series":[{"type":"bar",','"seriesLayoutBy":"row"},',
+                 '{"type":"bar",','"seriesLayoutBy":"row"},',
+                 '{"type":"bar",','"seriesLayoutBy":"row"}]','}',sep = '')
+  
+  
+  
+  
   
   
   #  SAIDA_POVOAMENTO$CODIGO[i] <- texto   
