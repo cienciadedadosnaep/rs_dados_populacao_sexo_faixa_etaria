@@ -105,8 +105,9 @@ teste2 <- gsub('\\[\\[','[',testejson)
 teste3 <- gsub('\\]\\]\\]',']',teste2)
 teste3 
 
+data_serie <- teste3
 
-data_serie <- paste('[',teste3,']',sep = '')
+#data_serie <- paste('[',teste3,']',sep = '')
 #data_serie_mod <- gsub('\\\"','"',data_serie)
 
 #dados_adulto <- dados %>% filter(classe %in% c('q43','q44','q45','q46'))
@@ -157,9 +158,15 @@ dados <- data_serie
 #                               paste(paste(as.vector(objeto_0[[1]]$consumo)),
 #                                     collapse = ' ')),']',sep = '')
   
-  texto <- paste('{"legend":{},"tooltip":{},"dataset":',
-                data_serie,
-                ',"xAxis":[{"type":"category","gridIndex":0}],"',
+#  {"legend":{},"tooltip":{},"dataset":{"source":[["product","2012","2013","2014","2015"],["Matcha Latte",41.1,30.4,65.1,53.3],["Milk Tea",86.5,92.1,85.7,83.1],
+#    ["Cheese Cocoa",24.1,67.2,79.5,86.4]]},
+#    "xAxis":[{"type":"category","gridIndex":0}],
+#    "yAxis":[{"gridIndex":0}],
+#    "series":[{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"},
+#              {"type":"bar","seriesLayoutBy":"row"}]}
+  
+  texto <- paste('{"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,']},
+                 "xAxis":[{"type":"category","gridIndex":0}],"',
                  "yAxis":[{"gridIndex":0}],
                  "series":[{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"}]'}', sep = '')
   
