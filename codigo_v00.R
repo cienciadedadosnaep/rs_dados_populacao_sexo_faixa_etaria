@@ -7,6 +7,7 @@ library(magrittr)
 library(readr)
 library(rjson)
 library(RJSONIO)
+library(jsonlite)
 
 # # Library para importar dados SQL
 # library(DBI)
@@ -81,12 +82,37 @@ names(dados) = c("ano",
                  "q48")
 
 
-dados %<>% gather(key = classe,
-                  value = consumo,-ano) 
-dados_ca <- dados %>% filter(classe %in% c('q41','q42'))
-dados_adulto <- dados %>% filter(classe %in% c('q43','q44','q45','q46'))
-dados_idoso <- dados %>% filter(classe %in% c('q47','q48'))
+#dados %<>% gather(key = classe,
+#                  value = consumo,-ano) 
+dados_ca <- dados %>% select(ano,q41,q42)
+dados_ca_t <- t(dados_ca)
+
+dados_ca_tn <- data.frame(as.character(row.names(dados_ca_t)),dados_ca_t)
+
+row.names(dados_ca_tn) <- NULL
+
+dados_ca_t_anos <- dados_ca_tn[1,]
+names(dados_ca_t_anos) <- NULL 
+dados_ca_t_anos <- as.character(dados_ca_t_anos)
+
+dados_ca_tl <-  dados_ca_tn[-c(1),]
+
+teste <- list(dados_ca_t_anos,dados_ca_tl)
+
+testejson <- jsonlite::toJSON(teste,dataframe = "values") 
+
+teste2 <- gsub('\\[\\[','[',testejson)
+teste3 <- gsub('\\]\\]\\]',']',teste2)
+teste3 
+
+
+data_serie <- paste('[',teste3,']',sep = '')
+#data_serie_mod <- gsub('\\\"','"',data_serie)
+
+#dados_adulto <- dados %>% filter(classe %in% c('q43','q44','q45','q46'))
+#dados_idoso <- dados %>% filter(classe %in% c('q47','q48'))
 #dados %<>% select(-id)
+
 # Temas Subtemas Perguntas
 
 
@@ -107,29 +133,29 @@ corsec_recossa_azul <- c('#175676','#62acd1','#8bc6d2','#20cfef',
 
 #for ( i in 1:length(classes)) {
 dados <- NULL
-dados <- dados_ca
+dados <- data_serie
 
 
-  objeto_0 <- dados %>%
+#  objeto_0 <- dados %>% list()
 #    filter(classe %in% c(classes[i])) %>%
-    select(ano,consumo) %>% filter(ano<2019) %>%
-    arrange(ano) %>%
-    mutate(ano = as.character(ano)) %>% list()               
+#    select(ano,consumo) %>% filter(ano<2019) %>%
+#    arrange(ano) %>%
+#    mutate(ano = as.character(ano)) %>% list()               
   
-  exportJson0 <- toJSON(objeto_0)
+  exportJson0 <- toJSON(teste3)
   
   
   titulo<-T_ST_P_No_POPULACAO$TITULO[i]
   subtexto<-"Painel do Saneamento"
   link <- T_ST_P_No_POPULACAO$LINK[i]
   
-  data_axis <- paste('[',gsub(' ',',',
-                              paste(paste(as.vector(objeto_0[[1]]$ano)),
-                                    collapse = ' ')),']',sep = '')
+#  data_axis <- paste('[',gsub(' ',',',
+#                              paste(paste(as.vector(objeto_0[[1]]$ano)),
+#                                   collapse = ' ')),']',sep = '')
   
-  data_serie <- paste('[',gsub(' ',',',
-                               paste(paste(as.vector(objeto_0[[1]]$consumo)),
-                                     collapse = ' ')),']',sep = '')
+#  data_serie <- paste('[',gsub(' ',',',
+#                               paste(paste(as.vector(objeto_0[[1]]$consumo)),
+#                                     collapse = ' ')),']',sep = '')
   
   texto <- paste('{"legend":{},"tooltip":{},"dataset":',
                 data_serie,
