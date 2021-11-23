@@ -165,19 +165,12 @@ dados <- data_serie
 #    "series":[{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"},
 #              {"type":"bar","seriesLayoutBy":"row"}]}
   
-  texto <- paste('{"title":{"text":"',titulo,
-                 '","subtext":"',subtexto,
-                 '","sublink":"',link,'"},',
-                 '"dataView":{"readOnly":false},',
-                 '"saveAsImage":{}}}',
-                 '"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,
-                 ']},"xAxis":[{"type":"category","gridIndex":0}],"',
+  texto <- paste('{"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,
+                 ']},"xAxis":[{"type":"category","gridIndex":0}],',
                  '"yAxis":[{"gridIndex":0}],',
                  '"series":[{"type":"bar",','"seriesLayoutBy":"row"},',
                  '{"type":"bar",','"seriesLayoutBy":"row"},',
                  '{"type":"bar",','"seriesLayoutBy":"row"}]','}',sep = '')
-  
-  
   
   
   
