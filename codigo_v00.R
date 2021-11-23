@@ -169,9 +169,11 @@ dados <- data_serie
                  ']},"xAxis":[{"type":"category","gridIndex":0}],',
                  '"yAxis":[{"gridIndex":0}],',
                  '"series":[{"type":"bar",','"seriesLayoutBy":"row"},',
-                 '{"type":"bar",','"seriesLayoutBy":"row"},',
                  '{"type":"bar",','"seriesLayoutBy":"row"}]','}',sep = '')
   
+  ## OBS - Incluir 
+  ##   '{"type":"bar",','"seriesLayoutBy":"row"},', proporcional ao 
+  ## numero de classes
   
   
   
