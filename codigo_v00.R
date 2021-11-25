@@ -69,22 +69,19 @@ dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
 ##  Perguntas e titulos 
 T_ST_P_No_POPULACAO <- read_csv("data/TEMA_SUBTEMA_P_No - POPULACAO_v00.csv")
 
+# Lembrar de substituir nomes de 
+#names(dados) = c("ano","q1","q2","q3","q41","q42",
+#                 "q43","q44","q45","q46","q47","q48")
 
-names(dados) = c("ano",
-                 "q1","q2","q3",
-                 "q41",
-                 "q42",
-                 "q43",
-                 "q44",
-                 "q45",
-                 "q46",
-                 "q47",
-                 "q48")
+names(dados) = c("ano","total","feminino","masculino",
+                 "0-4","5-14","15-19","20-29","30-39",
+                 "40-59","60-79","80+")
+
 
 
 #dados %<>% gather(key = classe,
 #                  value = consumo,-ano) 
-dados_ca <- dados %>% select(ano,q41,q42) %>% arrange(ano)
+dados_ca <- dados %>% select(ano,`0-4`,`5-14`) %>% arrange(ano)
 dados_ca_t <- t(dados_ca)
 
 dados_ca_tn <- data.frame(as.character(row.names(dados_ca_t)),dados_ca_t)
