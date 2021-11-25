@@ -161,16 +161,17 @@ dados <- data_serie
                  '{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[2],
                  '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
                  '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[2],
-                 '","borderWidth":2}},',
-                 '}]','}',sep="")
+                 '","borderWidth":2}}',
+                 ']','}',sep="")
   
   ## OBS - Incluir 
-  ## Se for necessario coloca mais colunas além das 2 do default,colocar na linha 167
+  ## Se for necessario coloca mais colunas além das 2 do default, e escolher 
+  ## uma cor pelo vetor corsec_recossa_azul[i],
   
-  #              '{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[3],
-  #              '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
-  #              '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[3],
-  #              '","borderWidth":2}},',
+  #{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[3],
+  #               '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
+  #               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[3],
+  #               '","borderWidth":2}},',
   
   
   #  SAIDA_POVOAMENTO$CODIGO[i] <- texto   
