@@ -140,7 +140,7 @@ for ( i in 1:length(classes)) {
                '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},',
                '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[i],'","borderWidth":2}}]}',sep='')
   
-  #  SAIDA_POVOAMENTO$CODIGO[i] <- texto   
+  #SAIDA_POVOAMENTO$CODIGO[i] <- texto   
   texto<-noquote(texto)
   
   
