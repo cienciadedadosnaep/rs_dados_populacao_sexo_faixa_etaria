@@ -84,7 +84,7 @@ names(dados) = c("ano",
 
 #dados %<>% gather(key = classe,
 #                  value = consumo,-ano) 
-dados_ca <- dados %>% select(ano,q41,q42)
+dados_ca <- dados %>% select(ano,q41,q42) %>% arrange(ano)
 dados_ca_t <- t(dados_ca)
 
 dados_ca_tn <- data.frame(as.character(row.names(dados_ca_t)),dados_ca_t)
@@ -146,26 +146,15 @@ dados <- data_serie
   exportJson0 <- toJSON(teste3)
   
   
-  titulo<-T_ST_P_No_POPULACAO$TITULO[i]
+  titulo<-T_ST_P_No_POPULACAO$TITULO[1]
   subtexto<-"Painel do Saneamento"
-  link <- T_ST_P_No_POPULACAO$LINK[i]
+  link <- T_ST_P_No_POPULACAO$LINK[1]
   
-#  data_axis <- paste('[',gsub(' ',',',
-#                              paste(paste(as.vector(objeto_0[[1]]$ano)),
-#                                   collapse = ' ')),']',sep = '')
   
-#  data_serie <- paste('[',gsub(' ',',',
-#                               paste(paste(as.vector(objeto_0[[1]]$consumo)),
-#                                     collapse = ' ')),']',sep = '')
-  
-#  {"legend":{},"tooltip":{},"dataset":{"source":[["product","2012","2013","2014","2015"],["Matcha Latte",41.1,30.4,65.1,53.3],["Milk Tea",86.5,92.1,85.7,83.1],
-#    ["Cheese Cocoa",24.1,67.2,79.5,86.4]]},
-#    "xAxis":[{"type":"category","gridIndex":0}],
-#    "yAxis":[{"gridIndex":0}],
-#    "series":[{"type":"bar","seriesLayoutBy":"row"},{"type":"bar","seriesLayoutBy":"row"},
-#              {"type":"bar","seriesLayoutBy":"row"}]}
-  
-  texto <- paste('{"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,
+  texto <- paste('{"title":{"text":"',titulo,
+                 '","subtext":"',subtexto,
+                 '","sublink":"',link,
+                 '"},"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,
                  ']},"xAxis":[{"type":"category","gridIndex":0}],',
                  '"yAxis":[{"gridIndex":0}],',
                  '"series":[{"type":"bar",','"seriesLayoutBy":"row"},',
@@ -181,9 +170,9 @@ dados <- data_serie
   texto<-noquote(texto)
   
   
-  write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[i]),
+  write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[1]),
                                  '.json',sep =''))
-  write(texto,file = paste('data/',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[i],
+  write(texto,file = paste('data/',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[1],
                            sep =''))
   
 #}
