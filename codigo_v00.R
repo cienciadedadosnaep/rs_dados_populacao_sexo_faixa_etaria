@@ -151,15 +151,15 @@ dados <- data_serie
   texto <- paste('{"title":{"text":"',titulo,
                  '","subtext":"',subtexto,
                  '","sublink":"',link,
-                 '"},"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,
+                 '"},"legend":{"show":true,"top":"bottom"},"tooltip":{},"dataset":{"source":[',data_serie,
                  ']},"xAxis":[{"type":"category","gridIndex":0}],',
                  '"yAxis":[{"gridIndex":0}],',
                  '"series":[{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[1],
-                 '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
+                 '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
                  '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],
                  '","borderWidth":2}},',
                  '{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[2],
-                 '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
+                 '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
                  '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[2],
                  '","borderWidth":2}}',
                  ']','}',sep="")
@@ -169,7 +169,7 @@ dados <- data_serie
   ## uma cor pelo vetor corsec_recossa_azul[i],
   
   #{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[3],
-  #               '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
+  #               '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
   #               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[3],
   #               '","borderWidth":2}},',
   
