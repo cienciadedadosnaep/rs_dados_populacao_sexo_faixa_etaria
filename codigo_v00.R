@@ -157,13 +157,23 @@ dados <- data_serie
                  '"},"legend":{},"tooltip":{},"dataset":{"source":[',data_serie,
                  ']},"xAxis":[{"type":"category","gridIndex":0}],',
                  '"yAxis":[{"gridIndex":0}],',
-                 '"series":[{"type":"bar",','"seriesLayoutBy":"row"},',
-                 '{"type":"bar",','"seriesLayoutBy":"row"}]','}',sep = '')
+                 '"series":[{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[1],
+                 '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
+                 '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],
+                 '","borderWidth":2}},',
+                 '{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[2],
+                 '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
+                 '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[2],
+                 '","borderWidth":2}},',
+                 '}]','}',sep="")
   
   ## OBS - Incluir 
-  ##   '{"type":"bar",','"seriesLayoutBy":"row"},', proporcional ao 
-  ## numero de classes
+  ## Se for necessario coloca mais colunas além das 2 do default,colocar na linha 167
   
+  #              '{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[3],
+  #              '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)}"},',
+  #              '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[3],
+  #              '","borderWidth":2}},',
   
   
   #  SAIDA_POVOAMENTO$CODIGO[i] <- texto   
