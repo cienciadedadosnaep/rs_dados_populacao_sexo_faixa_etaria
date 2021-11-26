@@ -20,7 +20,6 @@ for i in subtemal:
 subtemal1 = subtemal1[:-1]
 
 subtemal1 = list(subtemal1.split(','))
-#print(subtemal1)
 
 perguntas = str(df['PERGUNTA'])
 perguntal = list(perguntas.split('\n'))
