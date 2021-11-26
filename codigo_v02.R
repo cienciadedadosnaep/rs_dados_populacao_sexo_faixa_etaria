@@ -178,7 +178,7 @@ texto <- paste('{"title":{"text":"',titulo,
 texto<-noquote(texto)
 
 
-write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[1]),
+write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[3]),
                                '.json',sep =''))
 write(texto,file = paste('data/',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[3],
                          sep =''))
