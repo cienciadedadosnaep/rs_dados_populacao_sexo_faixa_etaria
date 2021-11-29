@@ -45,6 +45,7 @@ library(jsonlite)
 # #dbClearResult(rs)
 
 library(readr)
+
 ssa_painel_saneamento_brasil <- read_delim("data/ssa_painel_saneamento_brasil.csv", na = c("-", "NA"), 
                                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
 names(ssa_painel_saneamento_brasil)
@@ -155,11 +156,11 @@ dados <- data_serie
                  ']},"xAxis":[{"type":"category","gridIndex":0}],',
                  '"yAxis":[{"gridIndex":0}],',
                  '"series":[{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[1],
-                 '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
+                 '","showBackground":false,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
                  '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],
                  '","borderWidth":2}},',
                  '{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[2],
-                 '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
+                 '","showBackground":false,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
                  '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[2],
                  '","borderWidth":2}}',
                  ']','}',sep="")
