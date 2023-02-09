@@ -66,6 +66,14 @@ dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
                                                  `População com idade de 60 a 79 anos (pessoas) (IBGE)`,                                                                                               
                                                  `População com 80 anos ou mais (pessoas) (IBGE)`) 
 
+## Reorganizando a escala
+
+dados %<>% mutate(`População com idade de 15 a 19 anos (pessoas) (IBGE)`=`População com idade de 15 a 19 anos (pessoas) (IBGE)`/1000)
+dados %<>% mutate(`População com idade de 20 a 29 anos (pessoas) (IBGE)`=`População com idade de 20 a 29 anos (pessoas) (IBGE)`/1000)
+dados %<>% mutate(`População com idade de 30 a 39 anos (pessoas) (IBGE)`=`População com idade de 30 a 39 anos (pessoas) (IBGE)`/1000)
+dados %<>% mutate(`População com idade de 40 a 59 anos (pessoas) (IBGE)`=`População com idade de 40 a 59 anos (pessoas) (IBGE)`/1000)
+dados
+
 ##  Perguntas e titulos 
 T_ST_P_No_POPULACAO <- read_csv("data/TEMA_SUBTEMA_P_No - POPULACAO_v00.csv")
 
@@ -153,7 +161,7 @@ texto <- paste('{"title":{"text":"',titulo,
                '","sublink":"',link,
                '"},"legend":{"show":true,"top":"bottom"},"tooltip":{},"dataset":{"source":[',data_serie,
                ']},"xAxis":[{"type":"category","gridIndex":0}],',
-               '"yAxis":[{"gridIndex":0}],',
+               '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} mil"}},',
                '"series":[{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[1],
                '","showBackground":false,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
                '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],
