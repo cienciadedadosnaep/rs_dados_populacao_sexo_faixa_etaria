@@ -65,6 +65,10 @@ dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
          `População com idade de 60 a 79 anos (pessoas) (IBGE)`,                                                                                               
          `População com 80 anos ou mais (pessoas) (IBGE)`) 
 
+## Reorganizando a escala
+
+dados %<>% mutate(`População total (pessoas) (IBGE)`=`População total (pessoas) (IBGE)`/1000000)
+
 ##  Perguntas e titulos 
 T_ST_P_No_POPULACAO <- read_csv("data/TEMA_SUBTEMA_P_No - POPULACAO.csv")
 
@@ -134,7 +138,7 @@ for ( i in 1:length(classes)) {
                '"dataView":{"readOnly":false},"magicType":{"type":["line","bar"]},',
                '"restore":{},"saveAsImage":{}}},"xAxis":{"type":"category",',
                '"data":',data_axis,'},',
-               '"yAxis":{"type":"value","axisLabel":{"formatter":"{value}"}},',
+               '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} M"}},',
                '"series":[{"data":',data_serie,',',
                '"type":"bar","color":"',corsec_recossa_azul[i],'","showBackground":true,',
                '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},',

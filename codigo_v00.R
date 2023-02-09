@@ -67,6 +67,7 @@ dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
          `População com idade de 60 a 79 anos (pessoas) (IBGE)`,                                                                                               
          `População com 80 anos ou mais (pessoas) (IBGE)`) 
 
+
 ##  Perguntas e titulos 
 T_ST_P_No_POPULACAO <- read_csv("data/TEMA_SUBTEMA_P_No - POPULACAO_v00.csv")
 
