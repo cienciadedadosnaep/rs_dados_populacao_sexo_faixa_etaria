@@ -68,6 +68,10 @@ dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
 ## Reorganizando a escala
 
 dados %<>% mutate(`População total (pessoas) (IBGE)`=`População total (pessoas) (IBGE)`/1000000)
+dados %<>% mutate(`População feminina total (pessoas) (IBGE)`=`População feminina total (pessoas) (IBGE)`/1000000)
+dados %<>% mutate(`População masculina total (pessoas) (IBGE)`=`População masculina total (pessoas) (IBGE)`/1000000)
+
+
 
 ##  Perguntas e titulos 
 T_ST_P_No_POPULACAO <- read_csv("data/TEMA_SUBTEMA_P_No - POPULACAO.csv")
@@ -133,7 +137,7 @@ for ( i in 1:length(classes)) {
                '","subtext":"',subtexto,
                '","sublink":"',link,'"},',
                '"tooltip":{"trigger":"axis"},',
-               '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":45,"show":true,',
+               '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":20,"show":true,',
                '"feature":{"dataZoom":{"yAxisIndex":"none"},',
                '"dataView":{"readOnly":false},"magicType":{"type":["line","bar"]},',
                '"restore":{},"saveAsImage":{}}},"xAxis":{"type":"category",',
