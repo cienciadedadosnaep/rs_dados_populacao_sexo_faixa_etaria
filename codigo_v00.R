@@ -129,8 +129,10 @@ corsec_recossa_azul <- c('#175676','#62acd1','#8bc6d2','#20cfef',
 
   
   #Colocar o nome da coluna depois de "objeto_0[[1]]$"
+
   
-  
+  simbolo_linhas <- c('emptyCircle','emptyTriangle','emptySquare',
+                      'emptyDiamond','emptyRoundRect')
   texto<-paste('{"title":{"text":"',titulo,
                '","subtext":"',subtexto,
                '","sublink":"',link,'"},',
@@ -140,7 +142,7 @@ corsec_recossa_azul <- c('#175676','#62acd1','#8bc6d2','#20cfef',
                '"dataView":{"readOnly":false},',
                '"restore":{},"saveAsImage":{}}},"legend":{"show":true,"bottom":30},"grid":{"bottom":80},"xAxis":{"type":"category",',
                '"data":',data_axis,'},',
-               '"yAxis":{"type":"value","axisLabel":{"formatter":"{value}"}},',
+               '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} mil"}},',
                '"graphic":[{"type":"text","left":"center","top":"bottom","z":100, "style":{"fill":"gray","text":"Obs: Ponto é separador decimal", "font":"8px sans-srif","fontSize":12}}],',
                '"series":[{"name":"',nomes[2],'","data":',data_serie,',',
                '"type":"bar","color":"',corsec_recossa_azul[4],'","showBackground":true,',
