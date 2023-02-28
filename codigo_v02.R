@@ -139,10 +139,10 @@ data_axis <- paste('["',gsub(' ','","',
 
 
 data_serie <- paste('[',gsub(' ',',',
-                             paste(paste(as.vector(objeto_0[[1]]$`0-4`)),
+                             paste(paste(as.vector(objeto_0[[1]]$`60-79`)),
                                    collapse = ' ')),']',sep = '')
 data_serie2 <- paste('[',gsub(' ',',',
-                              paste(paste(as.vector(objeto_0[[1]]$`5-14`)),
+                              paste(paste(as.vector(objeto_0[[1]]$`80+`)),
                                     collapse = ' ')),']',sep = '')
 
 
