@@ -87,27 +87,9 @@ names(dados) = c("ano","total","feminino","masculino",
 #dados %<>% gather(key = classe,
 #                  value = consumo,-ano) 
 dados_id <- dados %>% select(ano,`60-79`,`80+`) %>% arrange(ano)
-dados_id_t <- t(dados_id)
-
-dados_id_tn <- data.frame(as.character(row.names(dados_id_t)),dados_id_t)
-
-row.names(dados_id_tn) <- NULL
-
-dados_id_t_anos <- dados_id_tn[1,]
-names(dados_id_t_anos) <- NULL 
-dados_id_t_anos <- as.character(dados_id_t_anos)
-
-dados_id_tl <-  dados_id_tn[-c(1),]
-
-teste_id <- list(dados_id_t_anos,dados_id_tl)
-
-testejson_id <- jsonlite::toJSON(teste_id,dataframe = "values") 
-
-teste2_id <- gsub('\\[\\[','[',testejson_id)
-teste3_id <- gsub('\\]\\]\\]',']',teste2_id)
-teste3_id 
-
-data_serie <- teste3_id
+dados_id %<>% mutate(across(`60-79`:`80+`, ~round(.x,1)))
+names(dados_id) = c("ano","60-79","80+")
+nomes <- names(dados_id)
 
 #data_serie <- paste('[',teste3,']',sep = '')
 #data_serie_mod <- gsub('\\\"','"',data_serie)
@@ -135,48 +117,60 @@ corsec_recossa_azul <- c('#175676','#62acd1','#8bc6d2','#20cfef',
                          '#175676','#62acd1','#8bc6d2','#20cfef')
 
 #for ( i in 1:length(classes)) {
-dados <- NULL
-dados <- data_serie
+#dados <- NULL
+#dados <- data_serie
 
 
-#  objeto_0 <- dados %>% list()
-#    filter(classe %in% c(classes[i])) %>%
-#    select(ano,consumo) %>% filter(ano<2019) %>%
-#    arrange(ano) %>%
-#    mutate(ano = as.character(ano)) %>% list()               
-
-exportJson0 <- toJSON(teste3_id)
+objeto_0 <- dados_id %>% 
+  #    filter(classe %in% c(classes[i])) %>%
+  select(ano,`60-79`,`80+`) %>% filter(ano<2019) %>%
+  arrange(ano) %>%
+  mutate(ano = as.character(ano)) %>% list()
+exportJson0 <- toJSON(objeto_0)
 
 
 titulo<-T_ST_P_No_POPULACAO$TITULO[3]
 subtexto<-"Painel do Saneamento"
 link <- T_ST_P_No_POPULACAO$LINK[3]
 
+data_axis <- paste('["',gsub(' ','","',
+                             paste(paste(as.vector(objeto_0[[1]]$ano)),
+                                   collapse = ' ')),'"]',sep = '')
 
-texto <- paste('{"title":{"text":"',titulo,
-               '","subtext":"',subtexto,
-               '","sublink":"',link,
-               '"},"legend":{"show":true,"top":"bottom"},"tooltip":{},"dataset":{"source":[',data_serie,
-               ']},"xAxis":[{"type":"category","gridIndex":0}],',
-               '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} mil"}},',
-               '"series":[{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[1],
-               '","showBackground":false,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
-               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],
-               '","borderWidth":2}},',
-               '{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[2],
-               '","showBackground":false,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
-               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[2],
-               '","borderWidth":2}}',
-               ']','}',sep="")
 
-## OBS - Incluir 
-## Se for necessario coloca mais colunas além das 2 do default, e escolher 
-## uma cor pelo vetor corsec_recossa_azul[i],
+data_serie <- paste('[',gsub(' ',',',
+                             paste(paste(as.vector(objeto_0[[1]]$`0-4`)),
+                                   collapse = ' ')),']',sep = '')
+data_serie2 <- paste('[',gsub(' ',',',
+                              paste(paste(as.vector(objeto_0[[1]]$`5-14`)),
+                                    collapse = ' ')),']',sep = '')
 
-#{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[3],
-#               '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
-#               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[3],
-#               '","borderWidth":2}},',
+
+#Colocar o nome da coluna depois de "objeto_0[[1]]$"
+
+
+simbolo_linhas <- c('emptyCircle','emptyTriangle','emptySquare',
+                    'emptyDiamond','emptyRoundRect')
+texto<-paste('{"title":{"text":"',titulo,
+             '","subtext":"',subtexto,
+             '","sublink":"',link,'"},',
+             '"tooltip":{"trigger":"item","responsive":"true","position":"top","formatter":"{c0} mil"},',
+             '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":20,"show":true,',
+             '"feature":{"dataZoom":{"yAxisIndex":"none"},',
+             '"dataView":{"readOnly":false},',
+             '"restore":{},"saveAsImage":{}}},"legend":{"show":true,"bottom":30},"grid":{"bottom":80},"xAxis":{"type":"category",',
+             '"data":',data_axis,'},',
+             '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} mil"}},',
+             '"graphic":[{"type":"text","left":"center","top":"bottom","z":100, "style":{"fill":"gray","text":"Obs: Ponto é separador decimal", "font":"8px sans-srif","fontSize":12}}],',
+             '"series":[{"name":"',nomes[2],'","data":',data_serie,',',
+             '"type":"bar","color":"',corsec_recossa_azul[4],'","showBackground":true,',
+             '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[1],
+             '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[4],'","borderWidth":2}},',
+             '{"name":"',nomes[3],'","data":',data_serie2,',',
+             '"type":"bar","color":"',corsec_recossa_azul[5],'","showBackground":true,',
+             '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[2],
+             '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[5],'","borderWidth":2}}',
+             ']}',sep='')
 
 
 #  SAIDA_POVOAMENTO$CODIGO[i] <- texto   
