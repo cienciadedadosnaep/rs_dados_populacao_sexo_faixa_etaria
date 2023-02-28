@@ -68,7 +68,7 @@ dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
 ## Reorganizando a escala
 
 dados %<>% mutate(`População total (pessoas) (IBGE)`=round(`População total (pessoas) (IBGE)`/1000000,2))
-dados %<>% mutate(`População feminina total (pessoas) (IBGE)`=`População feminina total (pessoas) (IBGE)`/1000000)
+dados %<>% mutate(`População feminina total (pessoas) (IBGE)`=round(`População feminina total (pessoas) (IBGE)`/1000000,2))
 dados %<>% mutate(`População masculina total (pessoas) (IBGE)`=`População masculina total (pessoas) (IBGE)`/1000000)
 
 
@@ -145,9 +145,9 @@ texto<-paste('{"title":{"text":"',titulo,
              '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} M"}},',
              '"graphic":[{"type":"text","left":"center","top":"bottom","z":100, "style":{"fill":"gray","text":"Obs: Ponto é separador decimal", "font":"8px sans-srif","fontSize":12}}],',
              '"series":[{"data":',data_serie,',',
-             '"type":"bar","color":"',corsec_recossa_azul[2],'","showBackground":true,',
+             '"type":"bar","color":"',corsec_recossa_azul[5],'","showBackground":true,',
              '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},',
-             '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[4],'","borderWidth":2}}]}',sep='')
+             '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[5],'","borderWidth":2}}]}',sep='')
 
 #SAIDA_POVOAMENTO$CODIGO[i] <- texto   
 texto<-noquote(texto)
