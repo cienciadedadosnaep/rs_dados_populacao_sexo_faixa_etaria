@@ -83,42 +83,10 @@ names(dados) = c("ano","total","feminino","masculino",
                  "40-59","60-79","80+")
 
 
-
-#dados %<>% gather(key = classe,
-#                  value = consumo,-ano) 
 dados_ca <- dados %>% select(ano,`0-4`,`5-14`) %>% arrange(ano)
-dados_ca_t <- t(dados_ca)
-
-dados_ca_tn <- data.frame(as.character(row.names(dados_ca_t)),dados_ca_t)
-
-row.names(dados_ca_tn) <- NULL
-
-dados_ca_t_anos <- dados_ca_tn[1,]
-names(dados_ca_t_anos) <- NULL 
-dados_ca_t_anos <- as.character(dados_ca_t_anos)
-
-dados_ca_tl <-  dados_ca_tn[-c(1),]
-
-teste <- list(dados_ca_t_anos,dados_ca_tl)
-
-testejson <- jsonlite::toJSON(teste,dataframe = "values") 
-
-teste2 <- gsub('\\[\\[','[',testejson)
-teste3 <- gsub('\\]\\]\\]',']',teste2)
-teste3 
-
-data_serie <- teste3
-
-#data_serie <- paste('[',teste3,']',sep = '')
-#data_serie_mod <- gsub('\\\"','"',data_serie)
-
-#dados_adulto <- dados %>% filter(classe %in% c('q43','q44','q45','q46'))
-#dados_idoso <- dados %>% filter(classe %in% c('q47','q48'))
-#dados %<>% select(-id)
-
-# Temas Subtemas Perguntas
-
-
+dados_ca %<>% mutate(across(`0-4`:`5-14`, ~round(.x,1)))
+names(dados_ca) = c("ano","0-4","5-14")
+nomes <- names(dados_ca)
 
 ## Arquivo de saida 
 
@@ -126,61 +94,68 @@ SAIDA_POVOAMENTO <- T_ST_P_No_POPULACAO %>%
   select(TEMA,SUBTEMA,PERGUNTA,NOME_ARQUIVO_JS)
 SAIDA_POVOAMENTO <- as.data.frame(SAIDA_POVOAMENTO)
 
-#classes <- NULL
-#classes <- levels(as.factor(dados_ca$classe))
 
 # Cores secundarias paleta pantone -
 corsec_recossa_azul <- c('#175676','#62acd1','#8bc6d2','#20cfef',
                          '#d62839','#20cfef','#fe4641','#175676',
                          '#175676','#62acd1','#8bc6d2','#20cfef')
 
-#for ( i in 1:length(classes)) {
-dados <- NULL
-dados <- data_serie
 
 
-#  objeto_0 <- dados %>% list()
+ objeto_0 <- dados_ca %>% 
 #    filter(classe %in% c(classes[i])) %>%
-#    select(ano,consumo) %>% filter(ano<2019) %>%
-#    arrange(ano) %>%
-#    mutate(ano = as.character(ano)) %>% list()               
+   select(ano,`0-4`,`5-14`) %>% filter(ano<2019) %>%
+   arrange(ano) %>%
+   mutate(ano = as.character(ano)) %>% list()               
   
-  exportJson0 <- toJSON(teste3)
+  exportJson0 <- toJSON(objeto_0)
   
   
   titulo<-T_ST_P_No_POPULACAO$TITULO[1]
-  subtexto<-"Painel do Saneamento"
+  subtexto<-"https://www.painelsaneamento.org.br"
   link <- T_ST_P_No_POPULACAO$LINK[1]
   
-  
-  texto <- paste('{"title":{"text":"',titulo,
-                 '","subtext":"',subtexto,
-                 '","sublink":"',link,
-                 '"},"legend":{"show":true,"top":"bottom"},"tooltip":{},"dataset":{"source":[',data_serie,
-                 ']},"xAxis":[{"type":"category","gridIndex":0}],',
-                 '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} mil"}},',
-                 '"series":[{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[1],
-                 '","showBackground":false,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
-                 '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],
-                 '","borderWidth":2}},',
-                 '{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[2],
-                 '","showBackground":false,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
-                 '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[2],
-                 '","borderWidth":2}}',
-                 ']','}',sep="")
-  
-  ## OBS - Incluir 
-  ## Se for necessario coloca mais colunas além das 2 do default, e escolher 
-  ## uma cor pelo vetor corsec_recossa_azul[i],
-  
-  #{"type":"bar",','"seriesLayoutBy":"row","color":"',corsec_recossa_azul[3],
-  #               '","showBackground":true,"backgroundStyle":{"color":"rgba(180, 180, 180, 0)}"},',
-  #               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[3],
-  #               '","borderWidth":2}},',
+  data_axis <- paste('["',gsub(' ','","',
+                               paste(paste(as.vector(objeto_0[[1]]$ano)),
+                                     collapse = ' ')),'"]',sep = '')
   
   
-  #  SAIDA_POVOAMENTO$CODIGO[i] <- texto   
+  data_serie <- paste('[',gsub(' ',',',
+                               paste(paste(as.vector(objeto_0[[1]]$`0-4`)),
+                                     collapse = ' ')),']',sep = '')
+  data_serie2 <- paste('[',gsub(' ',',',
+                                paste(paste(as.vector(objeto_0[[1]]$`5-14`)),
+                                      collapse = ' ')),']',sep = '')
+
+  
+  #Colocar o nome da coluna depois de "objeto_0[[1]]$"
+  
+  
+  texto<-paste('{"title":{"text":"',titulo,
+               '","subtext":"',subtexto,
+               '","sublink":"',link,'"},',
+               '"tooltip":{"trigger":"item","responsive":"true","position":"top","formatter":"{c0} mil"},',
+               '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":20,"show":true,',
+               '"feature":{"dataZoom":{"yAxisIndex":"none"},',
+               '"dataView":{"readOnly":false},',
+               '"restore":{},"saveAsImage":{}}},"legend":{"show":true,"bottom":30},"grid":{"bottom":80},"xAxis":{"type":"category",',
+               '"data":',data_axis,'},',
+               '"yAxis":{"type":"value","axisLabel":{"formatter":"{value}"}},',
+               '"graphic":[{"type":"text","left":"center","top":"bottom","z":100, "style":{"fill":"gray","text":"Obs: Ponto é separador decimal", "font":"8px sans-srif","fontSize":12}}],',
+               '"series":[{"name":"',nomes[2],'","data":',data_serie,',',
+               '"type":"bar","color":"',corsec_recossa_azul[4],'","showBackground":true,',
+               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[1],
+               '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[4],'","borderWidth":2}},',
+               '{"name":"',nomes[3],'","data":',data_serie2,',',
+               '"type":"bar","color":"',corsec_recossa_azul[5],'","showBackground":true,',
+               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[2],
+               '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[5],'","borderWidth":2}}',
+               ']}',sep='')
+  
+  
+  #SAIDA_POVOAMENTO$CODIGO[i] <- texto   
   texto<-noquote(texto)
+  
   
   
   write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[1]),
