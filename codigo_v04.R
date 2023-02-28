@@ -67,7 +67,7 @@ dados <- ssa_painel_saneamento_brasil %>% select(Indicador,
 
 ## Reorganizando a escala
 
-dados %<>% mutate(`População total (pessoas) (IBGE)`=`População total (pessoas) (IBGE)`/1000000)
+dados %<>% mutate(`População total (pessoas) (IBGE)`=round(`População total (pessoas) (IBGE)`/1000000,2))
 dados %<>% mutate(`População feminina total (pessoas) (IBGE)`=`População feminina total (pessoas) (IBGE)`/1000000)
 dados %<>% mutate(`População masculina total (pessoas) (IBGE)`=`População masculina total (pessoas) (IBGE)`/1000000)
 
@@ -89,8 +89,8 @@ names(dados) = c("ano",
                  "q48")
 
 
-dados %<>% gather(key = classe,
-                  value = consumo,-ano) 
+#dados %<>% gather(key = classe,
+                 # value = consumo,-ano) 
 #dados %<>% select(-id)
 # Temas Subtemas Perguntas
 
@@ -102,62 +102,63 @@ SAIDA_POVOAMENTO <- T_ST_P_No_POPULACAO %>%
   select(TEMA,SUBTEMA,PERGUNTA,NOME_ARQUIVO_JS)
 SAIDA_POVOAMENTO <- as.data.frame(SAIDA_POVOAMENTO)
 
-classes <- NULL
-classes <- levels(as.factor(dados$classe))
+#classes <- NULL
+#classes <- levels(as.factor(dados$classe))
 
 # Cores secundarias paleta pantone -
 corsec_recossa_azul <- c('#175676','#62acd1','#8bc6d2','#20cfef',
                          '#d62839','#20cfef','#fe4641','#175676',
                          '#175676','#62acd1','#8bc6d2','#20cfef')
 
-for ( i in 1:length(classes)) {
+#for ( i in 1:length(classes)) {
   
   objeto_0 <- dados %>%
-    filter(classe %in% c(classes[i])) %>%
-    select(ano,consumo) %>% filter(ano<2019) %>%
+   # filter(classe %in% c(classes[i])) %>%
+    select(ano,q1) %>% filter(ano<2019) %>%
     arrange(ano) %>%
     mutate(ano = as.character(ano)) %>% list()               
   
   exportJson0 <- toJSON(objeto_0)
   
   
-  titulo<-T_ST_P_No_POPULACAO$TITULO[i]
+  titulo<-T_ST_P_No_POPULACAO$TITULO[1]
   subtexto<-"Painel do Saneamento"
-  link <- T_ST_P_No_POPULACAO$LINK[i]
+  link <- T_ST_P_No_POPULACAO$LINK[1]
   
   data_axis <- paste('[',gsub(' ',',',
                               paste(paste(as.vector(objeto_0[[1]]$ano)),
                                     collapse = ' ')),']',sep = '')
   
   data_serie <- paste('[',gsub(' ',',',
-                               paste(paste(as.vector(objeto_0[[1]]$consumo)),
+                               paste(paste(as.vector(objeto_0[[1]]$`q1`)),
                                      collapse = ' ')),']',sep = '')
   
   texto<-paste('{"title":{"text":"',titulo,
                '","subtext":"',subtexto,
                '","sublink":"',link,'"},',
-               '"tooltip":{"trigger":"axis"},',
+               '"tooltip":{"trigger":"item","responsive":"true","position":"top","formatter":"{c0} M"},',
                '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":20,"show":true,',
                '"feature":{"dataZoom":{"yAxisIndex":"none"},',
                '"dataView":{"readOnly":false},"magicType":{"type":["line","bar"]},',
                '"restore":{},"saveAsImage":{}}},"xAxis":{"type":"category",',
                '"data":',data_axis,'},',
                '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} M"}},',
+               '"graphic":[{"type":"text","left":"center","top":"bottom","z":100, "style":{"fill":"gray","text":"Obs: Ponto é separador decimal", "font":"8px sans-srif","fontSize":12}}],',
                '"series":[{"data":',data_serie,',',
-               '"type":"bar","color":"',corsec_recossa_azul[i],'","showBackground":true,',
+               '"type":"bar","color":"',corsec_recossa_azul[2],'","showBackground":true,',
                '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},',
-               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[i],'","borderWidth":2}}]}',sep='')
+               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[4],'","borderWidth":2}}]}',sep='')
   
   #SAIDA_POVOAMENTO$CODIGO[i] <- texto   
   texto<-noquote(texto)
   
   
-  write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[i]),
+  write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[1]),
                                  '.json',sep =''))
-  write(texto,file = paste('data/',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[i],
+  write(texto,file = paste('data/',T_ST_P_No_POPULACAO$NOME_ARQUIVO_JS[1],
                            sep =''))
   
-}
+#}
 
 # Arquivo dedicado a rotina de atualizacao global. 
 
